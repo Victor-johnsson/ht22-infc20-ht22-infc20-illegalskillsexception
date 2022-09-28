@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection.PortableExecutable;
@@ -29,19 +30,56 @@ namespace ProjAssignment
             
         }
 
-        public void TryConnection()
+        public DataTable ReadByStoredProcedure(string spName)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
+            using SqlCommand command = new SqlCommand(spName, connection);
+            command.CommandType = CommandType.StoredProcedure;
             connection.Open();
-            using SqlCommand command = new SqlCommand("SELECT * FROM Animal",connection);
+
             var reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                Debug.WriteLine("{0}\t{1}", reader.GetInt32(0),
-                      reader.GetString(1));
-            }
-            connection.Close();
+            var table = new DataTable();
+            table.Load(reader);
+
+
+            return table;
         }
+
+        public void AddCaretaker (string name, string phoneNumber)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            using SqlCommand command = new SqlCommand("usp_CreateCareTaker", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@name", name);
+            command.Parameters.AddWithValue("@phoneNbr", phoneNumber);
+            connection.Open();
+            command.ExecuteNonQuery();
+
+        }
+        public void CallProcedureWithParameters(string[] paramNames, object[] values, string spName)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            using SqlCommand command = new SqlCommand(spName, connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            if(paramNames.Length == values.Length)
+            {
+                for(int i = 0; i < paramNames.Length; i++)
+                {
+                    command.Parameters.AddWithValue(paramNames[i], values[i]);
+                }
+            }
+
+        
+            connection.Open();
+            command.ExecuteNonQuery();
+
+        }
+
+
+
         public string ConnectionString => connectionString;
+
     }
 }
