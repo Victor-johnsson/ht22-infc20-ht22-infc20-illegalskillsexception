@@ -10,7 +10,7 @@
 
     <Grid>
         <Canvas Background="White">
-            <DataGrid x:Name="caretakerTable" Height="169" Width="185" AutoGenerateColumns="False" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="106" Canvas.Top="80" CellEditEnding="OnCellUpdated">
+            <DataGrid x:Name="caretakerTable" Height="169" Width="185" AutoGenerateColumns="False" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="106" Canvas.Top="80" CellEditEnding="OnCellUpdated" RowEditEnding="OnRowEditEnd" CanUserReorderColumns="False" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Caretaker Name" Binding="{Binding Name}"/>
                     <DataGridTextColumn Header="Phonenumber" Binding="{Binding PhoneNumber}"/>
@@ -22,6 +22,7 @@
             <Label Content="Name" Canvas.Left="475" Canvas.Top="80" RenderTransformOrigin="-0.56,1.407"/>
             <Label Content="Phone Number" Canvas.Left="475" Canvas.Top="125" RenderTransformOrigin="-0.56,1.407" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <Button x:Name="addButton" Content="Add" Canvas.Left="481" Canvas.Top="210" Click="OnAddButton"/>
+            <Button x:Name="deleteBtn" Content="Delete" Canvas.Left="215" Canvas.Top="265" Click="OnDeleteBtn"/>
         </Canvas>
 
     </Grid>
