@@ -86,7 +86,7 @@ namespace ProjAssignment
             var row = e.Row as DataGridRow;
             if (row.Item is DataRowView rowView)
             {
-                object[] itemArray = rowView.Row.ItemArray;
+                object?[] itemArray = rowView.Row.ItemArray;
                 var paramNames = new string[] { "@id", "@name", "@phoneNumber" };
 
                 dal.CallProcedureWithParameters(paramNames, itemArray, "usp_UpdateCaretaker");

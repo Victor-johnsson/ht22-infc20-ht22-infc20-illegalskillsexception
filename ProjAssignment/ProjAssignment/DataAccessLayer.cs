@@ -29,7 +29,7 @@ namespace ProjAssignment
             }
             
         }
-
+        
         public DataTable ReadByStoredProcedure(string spName)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
@@ -57,7 +57,7 @@ namespace ProjAssignment
             command.ExecuteNonQuery();
 
         }
-        public void CallProcedureWithParameters(string[] paramNames, object[] values, string spName)
+        public void CallProcedureWithParameters(string[] paramNames, object?[] values, string spName)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
             using SqlCommand command = new SqlCommand(spName, connection);
