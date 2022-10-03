@@ -41,7 +41,7 @@ namespace ProjAssignment
             var values = new object[] { name, phoneNumber };
 
             dal.CallProcedureWithParameters(paramNames, values, "usp_CreateCaretaker");
-            //dal.AddCaretaker(name, phoneNumber);
+            
 
             caretakerTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadCaretaker").DefaultView;
         }
