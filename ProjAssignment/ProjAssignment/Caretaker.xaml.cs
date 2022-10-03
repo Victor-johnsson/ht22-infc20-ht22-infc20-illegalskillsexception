@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace ProjAssignment
 {
@@ -31,21 +32,12 @@ namespace ProjAssignment
         }
 
         private void OnCellUpdated(object sender, DataGridCellEditEndingEventArgs e)
+
         {
 
-            var column = e.Column;
-            var rowView = e.Row.Item as DataRowView;
-            var row = rowView.Row;
-            var itemArray = row.ItemArray;
-
-            var editedColumn = e.EditingElement;
-            var s = editedColumn.ToString();
-            var editText = s.Split(": ")[1];
-            itemArray[column.DisplayIndex + 1] = editText;
-
-            var paramNames = new string[] { "@id", "@name", "@phoneNumber" };
-            dal.CallProcedureWithParameters(paramNames, itemArray, "usp_UpdateCaretaker");
-
+            
+           
+    
            
         }
 
@@ -91,26 +83,17 @@ namespace ProjAssignment
 
         private void OnRowEditEnd(object sender, DataGridRowEditEndingEventArgs e)
         {
-            //caretakerTable.CommitEdit();
-            //var rowView = e.Row.Item as DataRowView;
-            
-            
-            //// e.ToString();
-            //Debug.WriteLine(e.ToString());
-            //if (rowView != null)
-            //{
-                
+            var row = e.Row as DataGridRow;
+            if (row.Item is DataRowView rowView)
+            {
+                object[] itemArray = rowView.Row.ItemArray;
+                var paramNames = new string[] { "@id", "@name", "@phoneNumber" };
 
-                //int id = (int)row.ItemArray[0];
+                dal.CallProcedureWithParameters(paramNames, itemArray, "usp_UpdateCaretaker");
 
-                //var paramNames = new string[] { "@id" };
-                //var values = new object[] { id };
 
-                //dal.CallProcedureWithParameters(paramNames, values, "usp_DeleteCaretaker");
 
-                //caretakerTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadCaretaker").DefaultView;
-            //}
-
+            }
 
         }
     }
