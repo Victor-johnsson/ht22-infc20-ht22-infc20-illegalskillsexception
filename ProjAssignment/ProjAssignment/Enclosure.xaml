@@ -18,7 +18,7 @@
                     <GradientStop Color="#FF8BB5A8" Offset="0.067"/>
                 </LinearGradientBrush>
             </Canvas.Background>
-            <DataGrid x:Name="enclosureTable" Height="182" Width="323" AutoGenerateColumns="False" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="70" Canvas.Left="46" RenderTransformOrigin="0.5,0.5" SelectionChanged="enclosureTable_SelectionChanged" IsEnabled="False">
+            <DataGrid x:Name="enclosureTable" Height="182" Width="323" AutoGenerateColumns="False" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="70" Canvas.Left="46" RenderTransformOrigin="0.5,0.5" SelectionChanged="enclosureTable_SelectionChanged" IsEnabled="True" RowEditEnding="OnUpdate">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
                     <DataGridTextColumn Header="Location" Binding="{Binding Location, UpdateSourceTrigger=PropertyChanged}" />
@@ -27,13 +27,15 @@
 
                 </DataGrid.Columns>
             </DataGrid>
-            <Button x:Name="addButton" Content="Add" Canvas.Left="584" Canvas.Top="237" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.118,0.86" Click="onAddButton"/>
-            <Button Content="Delete" Canvas.Left="46" Canvas.Top="267"/>
+            <Button x:Name="addButton" Content="Add" Canvas.Left="584" Canvas.Top="237" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.118,0.86" Click="OnAddButton"/>
+            <Button x:Name="deleteButton" Content="Delete" Canvas.Left="46" Canvas.Top="267" Click="OnDeleteButton"/>
 
             <xctk:IntegerUpDown Name="myUpDownControl" Canvas.Top="72" Canvas.Left="490" IsEnabled="True"/>
+            <xctk:IntegerUpDown Name="sizeUpDownControl" Canvas.Top="210" Increment="10" Canvas.Left="490" IsEnabled="True"/>
+
+
             <TextBox x:Name="nameTextBox" Canvas.Left="490" TextWrapping="Wrap" Canvas.Top="116" Width="120" HorizontalAlignment="Left" VerticalAlignment="Center" TextChanged="nameTextBox_TextChanged"/>
-            <TextBox x:Name="locationTextBox" Canvas.Left="490" TextWrapping="Wrap" Canvas.Top="161" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <TextBox x:Name="sizeTextBox" Canvas.Left="490" TextWrapping="Wrap" Canvas.Top="207" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top" />
+            <TextBox x:Name="locationTextBox" Canvas.Left="490" TextWrapping="Wrap" Canvas.Top="161" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top" TextChanged="locationTextBox_TextChanged"/>
             <Label x:Name="Capacity" Content="Capacity&#xD;&#xA;" Canvas.Left="490" Canvas.Top="41" HorizontalAlignment="Center" VerticalAlignment="Top" Height="26"/>
             <Label Content="Name" Canvas.Left="490" Canvas.Top="90" HorizontalAlignment="Center" VerticalAlignment="Top" IsEnabled="True"/>
             <Label Content="Location" Canvas.Left="490" Canvas.Top="134" />

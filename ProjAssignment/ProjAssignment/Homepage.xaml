@@ -24,7 +24,7 @@
             <MenuItem Header="Animals" />
             <MenuItem Header="Enclosure"/>
         </Menu>
-        <Frame x:Name="contentFrame" Source="../Enclosure.xaml" Margin="20,10,10,10" Grid.Column="1" />
+        <Frame x:Name="contentFrame" Source="../Animal.xaml" Margin="20,10,10,10" Grid.Column="1" />
 
 
 
