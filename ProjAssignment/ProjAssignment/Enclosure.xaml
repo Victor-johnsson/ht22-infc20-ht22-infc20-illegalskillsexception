@@ -34,12 +34,19 @@
             <xctk:IntegerUpDown Name="sizeUpDownControl" Canvas.Top="210" Increment="10" Canvas.Left="490" IsEnabled="True"/>
 
 
-            <TextBox x:Name="nameTextBox" Canvas.Left="490" TextWrapping="Wrap" Canvas.Top="116" Width="120" HorizontalAlignment="Left" VerticalAlignment="Center" TextChanged="nameTextBox_TextChanged"/>
-            <TextBox x:Name="locationTextBox" Canvas.Left="490" TextWrapping="Wrap" Canvas.Top="161" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top" TextChanged="locationTextBox_TextChanged"/>
+            <TextBox x:Name="nameTextBox" Canvas.Left="490" TextWrapping="Wrap" Canvas.Top="116" Width="120" HorizontalAlignment="Left" VerticalAlignment="Center" />
+            <TextBox x:Name="locationTextBox" Canvas.Left="490" TextWrapping="Wrap" Canvas.Top="161" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top" />
             <Label x:Name="Capacity" Content="Capacity&#xD;&#xA;" Canvas.Left="490" Canvas.Top="41" HorizontalAlignment="Center" VerticalAlignment="Top" Height="26"/>
             <Label Content="Name" Canvas.Left="490" Canvas.Top="90" HorizontalAlignment="Center" VerticalAlignment="Top" IsEnabled="True"/>
             <Label Content="Location" Canvas.Left="490" Canvas.Top="134" />
             <Label Content="Size" Canvas.Left="490" Canvas.Top="181" />
+            <RichTextBox x:Name="EnclosureRichTextBox" Height="63" Width="267" Canvas.Top="277" Canvas.Left="380" IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Center"  >
+                <FlowDocument>
+                    <Paragraph>
+                        <Run Text=""/>
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
         </Canvas>
 
 

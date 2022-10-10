@@ -10,14 +10,14 @@
 
     <Grid>
         <Canvas Background="White">
-            <DataGrid x:Name="caretakerTable" Height="169" Width="185" AutoGenerateColumns="False" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="106" Canvas.Top="80" CellEditEnding="OnCellUpdated" RowEditEnding="OnRowEditEnd" CanUserReorderColumns="True" >
+            <DataGrid x:Name="caretakerTable" Height="169" Width="185" AutoGenerateColumns="False" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="106" Canvas.Top="80" RowEditEnding="OnRowEditEnd" CanUserReorderColumns="True" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Caretaker" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
                     <DataGridTextColumn Header="Phonenumber" Binding="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
                 </DataGrid.Columns>
 
             </DataGrid>
-            <TextBox x:Name="nameTextBox" Canvas.Left="475" TextWrapping="Wrap" Canvas.Top="107" Width="120" TextChanged="nameTextBox_TextChanged"/>
+            <TextBox x:Name="nameTextBox" Canvas.Left="475" TextWrapping="Wrap" Canvas.Top="107" Width="120"/>
             <TextBox x:Name="phoneNbrTextBox" Canvas.Left="475" TextWrapping="Wrap" Canvas.Top="147" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <Label Content="Name" Canvas.Left="475" Canvas.Top="80" RenderTransformOrigin="-0.56,1.407"/>
             <Label Content="Phone Number" Canvas.Left="475" Canvas.Top="125" RenderTransformOrigin="-0.56,1.407" HorizontalAlignment="Center" VerticalAlignment="Top"/>

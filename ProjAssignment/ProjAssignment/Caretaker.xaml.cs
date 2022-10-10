@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
@@ -25,20 +26,9 @@ namespace ProjAssignment
     {
         private DataAccessLayer dal = new DataAccessLayer();
         public Caretaker()
-        {
-            
+        { 
             InitializeComponent();
             caretakerTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadCaretaker").DefaultView;
-        }
-
-        private void OnCellUpdated(object sender, DataGridCellEditEndingEventArgs e)
-
-        {
-
-            
-           
-    
-           
         }
 
         private void OnAddButton(object sender, RoutedEventArgs e)
@@ -48,16 +38,33 @@ namespace ProjAssignment
             var paramNames = new string[] { "@name", "@phoneNbr" };
             var values = new object[] { name, phoneNumber };
 
-            dal.CallProcedureWithParameters(paramNames, values, "usp_CreateCaretaker");
-            
+            try
+            {
+                if (string.IsNullOrEmpty(name.Trim()) || string.IsNullOrEmpty(phoneNumber.Trim()))
+                {
+                    MessageBox.Show("Please add information");
+                }
+                else
+                {
+                    dal.CallProcedureWithParameters(paramNames, values, "usp_CreateCaretaker");
 
-            caretakerTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadCaretaker").DefaultView;
-        }
+                    caretakerTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadCaretaker").DefaultView;
+                }
+            }
+            catch (SqlException ex)
+            {               
+                if (ex.Number == 2627)
+                {
+                    MessageBox.Show("Id already excists");
+                }
 
-
-        private void nameTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
+                else
+                {
+                    MessageBox.Show("Something went wrong");
+                }
+            }
+            nameTextBox.Clear();
+            phoneNbrTextBox.Clear();
         }
 
         private void OnDeleteBtn(object sender, RoutedEventArgs e)
@@ -75,9 +82,7 @@ namespace ProjAssignment
                 dal.CallProcedureWithParameters(paramNames, values, "usp_DeleteCaretaker");
 
                 caretakerTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadCaretaker").DefaultView;
-            }
-           
-
+            }        
 
         }
 
@@ -90,8 +95,6 @@ namespace ProjAssignment
                 var paramNames = new string[] { "@id", "@name", "@phoneNumber" };
 
                 dal.CallProcedureWithParameters(paramNames, itemArray, "usp_UpdateCaretaker");
-
-
 
             }
 
