@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,8 @@ namespace ProjAssignment
             animalTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadAnimal").DefaultView;
             enclosureComboBox.ItemsSource = dal.ReadByStoredProcedure("usp_ReadEnclosure").DefaultView;
             foodComboBox.ItemsSource = dal.ReadByStoredProcedure("usp_ReadFood").DefaultView;
+            animalNameCombobox.ItemsSource = dal.ReadByStoredProcedure("usp_ReadAnimal").DefaultView;
+            foodRadioButton.IsChecked = true;
         }
 
         private void animalTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -69,5 +72,82 @@ namespace ProjAssignment
 
         }
 
+        private void OnDeleteButtonClick(object sender, RoutedEventArgs e)
+        {
+            var selection = animalTable.SelectedItem as DataRowView;
+            if(selection != null) {
+                var id = selection["Id"];
+                dal.CallProcedureWithParameters(new[] { "@id" }, new[] { id }, "usp_DeleteAnimal");
+               
+                animalTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadAnimal").DefaultView;
+            }
+            
+            
+        }
+
+        private void UpdateAnimal(object sender, DataGridRowEditEndingEventArgs e)
+        {
+            var dataGridRow = e.Row;
+            var row = dataGridRow.Item as DataRowView;
+            if (row != null)
+            {
+                var itemArray = row.Row;
+                object?[] values = { itemArray["id"], itemArray["animalName"], itemArray["foodAmount"], itemArray["enclosureId"], itemArray["foodId"] };
+
+
+                dal.CallProcedureWithParameters(
+                   new[] { "@id", "@name", "@foodAmount", "@enclosureId", "@foodId" },
+                   values,
+                   "usp_UpdateAnimal");
+
+
+                animalTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadAnimal").DefaultView;
+
+
+            }
+        }
+
+        private void OnEnclosureRadioButton(object sender, RoutedEventArgs e)
+        {
+            changeCombobox.ItemsSource = dal.ReadByStoredProcedure("usp_ReadEnclosure").DefaultView;
+            changeCombobox.DisplayMemberPath = "Name";
+        }
+
+        private void OnFoodRadioButton(object sender, RoutedEventArgs e)
+        {
+            changeCombobox.ItemsSource = dal.ReadByStoredProcedure("usp_ReadFood").DefaultView;
+            changeCombobox.DisplayMemberPath = "Type";
+        }
+
+        private void OnUpdateButtonClick(object sender, RoutedEventArgs e)
+        {
+
+
+            var animal = animalNameCombobox.SelectedItem as DataRowView;
+            var item = changeCombobox.SelectedItem as DataRowView;
+            var itemRow = item.Row;
+            var animalRow = animal.Row;
+            var values = new object[5];
+            values[0] = animalRow["Id"];
+            values[1] = animalRow["animalName"];
+            values[2] = animalRow["foodAmount"];
+
+            if (foodRadioButton.IsChecked.Value)
+            {
+                values[4] = itemRow["Id"];
+                values[3] = animalRow["enclosureId"]; 
+
+            } else
+            {
+                values[3] = itemRow["Id"];
+                values[4] = animalRow["foodId"];
+            }
+            dal.CallProcedureWithParameters(new[] { "@id", "@name", "@foodAmount", "@enclosureId", "@foodId" }, values, "usp_UpdateAnimal");
+
+            animalTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadAnimal").DefaultView;
+            animalNameCombobox.ItemsSource = dal.ReadByStoredProcedure("usp_ReadAnimal").DefaultView;
+            changeCombobox.SelectedItem = null;
+
+        }
     }
 }
