@@ -69,11 +69,12 @@ namespace ProjAssignment
                 {
                     command.Parameters.AddWithValue(paramNames[i], values[i]);
                 }
+                connection.Open();
+                command.ExecuteNonQuery();
             }
 
         
-            connection.Open();
-            command.ExecuteNonQuery();
+            
 
         }
 

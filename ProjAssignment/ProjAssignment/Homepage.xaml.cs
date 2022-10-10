@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ProjAssignment
@@ -32,6 +33,21 @@ namespace ProjAssignment
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void OnCaretakerClick(object sender, RoutedEventArgs e)
+        {
+            contentFrame.Source = new Uri("../Caretaker.xaml", UriKind.Relative);
+        }
+
+        private void OnAnimalsClick(object sender, RoutedEventArgs e)
+        {
+            contentFrame.Source = new Uri("../Animal.xaml", UriKind.Relative);
+        }
+
+        private void OnEnclosureClick(object sender, RoutedEventArgs e)
+        {
+            contentFrame.Source = new Uri("../Enclosure.xaml", UriKind.Relative);
         }
     }
 }
