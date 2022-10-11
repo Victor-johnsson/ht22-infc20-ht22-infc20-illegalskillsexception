@@ -57,18 +57,29 @@ namespace ProjAssignment
 
         private void OnAddButtonClick(object sender, RoutedEventArgs e)
         {
-            var name = animalNameTextBox.Text;
+            var name = animalNameTextBox.Text.Trim();
             var food = foodComboBox.SelectedValue;
             var enclosure = enclosureComboBox.SelectedValue;
 
             var type = animalTypeTextBox.Text;
             var foodAmount = foodIntegerUpDown.Value;
 
-            dal.CallProcedureWithParameters(
-                new[] { "@name", "@foodId", "@enclosureId", "@type", "@foodAmount" },
-                new object[] { name, food, enclosure, type, foodAmount },
-                "usp_CreateAnimal");
-            animalTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadAnimal").DefaultView;
+
+            if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(type) && food!= null && enclosure!= null && foodAmount!=null) 
+            {
+               
+               dal.CallProcedureWithParameters(
+              new[] { "@name", "@foodId", "@enclosureId", "@type", "@foodAmount" },
+              new object[] { name, food, enclosure, type, foodAmount },
+              "usp_CreateAnimal");
+                animalTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadAnimal").DefaultView;
+            }
+
+            else
+            {
+                errorMsg.Content = "Please enter all fields";
+
+            }    
 
         }
 

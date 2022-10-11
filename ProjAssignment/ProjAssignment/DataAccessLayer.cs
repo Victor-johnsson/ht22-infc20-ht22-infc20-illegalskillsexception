@@ -71,10 +71,7 @@ namespace ProjAssignment
                 }
                 connection.Open();
                 command.ExecuteNonQuery();
-            }
-
-        
-            
+            }           
 
         }
 

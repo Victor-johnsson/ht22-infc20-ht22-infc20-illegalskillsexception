@@ -6,10 +6,11 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ProjAssignment"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="495.595" d:DesignWidth="853.524"
       Title="Enclosure">
     <Page.Resources >
         <local:NameValidator x:Key="Ods"/>
+        <local:IntValidator x:Key="iVal"/>
         <ControlTemplate x:Key="ValidationTemplate">
             <DockPanel>
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
@@ -48,7 +49,11 @@
     </Page.Resources>
 
     <Grid>
-        <Canvas IsEnabled="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="23*"/>
+        </Grid.RowDefinitions>
+        <Canvas IsEnabled="True" Grid.RowSpan="2">
             <Canvas.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF629887" Offset="0"/>
@@ -62,15 +67,30 @@
                     <DataGridTextColumn Header="Location" Binding="{Binding Location, UpdateSourceTrigger=PropertyChanged}" />
                     <DataGridTextColumn Header="Size" Binding="{Binding Size, UpdateSourceTrigger=PropertyChanged}" />
                     <DataGridTextColumn Header="Capacity" Binding="{Binding MaxAmountAnimals, UpdateSourceTrigger=PropertyChanged}" />
-
                 </DataGrid.Columns>
             </DataGrid>
             <Button x:Name="addButton" Content="Add" Canvas.Left="584" Canvas.Top="237" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.118,0.86" Click="OnAddButton"/>
             <Button x:Name="deleteButton" Content="Delete" Canvas.Left="331" Canvas.Top="262" Click="OnDeleteButton"/>
 
-            <xctk:IntegerUpDown Name="myUpDownControl" Canvas.Top="72" Canvas.Left="490" IsEnabled="True"/>
-            <xctk:IntegerUpDown Name="sizeUpDownControl" Canvas.Top="210" Increment="10" Canvas.Left="490" IsEnabled="True"/>
+            <xctk:IntegerUpDown Name="myUpDownControl" Canvas.Top="72" Canvas.Left="490" IsEnabled="True" Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
+                <xctk:IntegerUpDown.Text>
 
+                    <Binding Source="{StaticResource iVal}" Path="Capacity" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" >
+                        <Binding.ValidationRules>
+                            <local:IntValidator Max="500" Min="1"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </xctk:IntegerUpDown.Text>
+            </xctk:IntegerUpDown>
+            <xctk:IntegerUpDown Name="sizeUpDownControl" Canvas.Top="210" Increment="10" Canvas.Left="490" IsEnabled="True" Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
+                <xctk:IntegerUpDown.Text>
+                    <Binding Source="{StaticResource iVal}" Path="Size" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" >
+                        <Binding.ValidationRules>
+                            <local:IntValidator Max="1000" Min="1"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </xctk:IntegerUpDown.Text>
+            </xctk:IntegerUpDown>
 
             <TextBox x:Name="nameTextBox" Canvas.Left="490" TextWrapping="NoWrap" Canvas.Top="116" Width="120" HorizontalAlignment="Left" VerticalAlignment="Center"
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
@@ -91,17 +111,10 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <Label x:Name="Capacity" Content="Capacity&#xD;&#xA;" Canvas.Left="435" Canvas.Top="70" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26"/>
+            <Label x:Name="Capacity" Content="Animal Capacity &#xA;" Canvas.Left="392" Canvas.Top="69" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26"/>
             <Label Content="Name" Canvas.Left="443" Canvas.Top="112" HorizontalAlignment="Left" VerticalAlignment="Top" IsEnabled="True"/>
             <Label Content="Location" Canvas.Left="430" Canvas.Top="157" />
-            <Label Content="Size" Canvas.Left="449" Canvas.Top="204" />
-            <RichTextBox x:Name="EnclosureRichTextBox" Height="63" Width="161" Canvas.Top="272" Canvas.Left="449" IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Center"  >
-                <FlowDocument>
-                    <Paragraph>
-                        <Run Text=""/>
-                    </Paragraph>
-                </FlowDocument>
-            </RichTextBox>
+            <Label Content="Size (sq m)" Canvas.Left="422" Canvas.Top="207" HorizontalAlignment="Left" VerticalAlignment="Top" />
         </Canvas>
 
 

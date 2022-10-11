@@ -40,12 +40,10 @@ namespace ProjAssignment
 
             try
             {
-                if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(phoneNumber))
+                if (!string.IsNullOrEmpty(name) || !string.IsNullOrEmpty(phoneNumber))
                 {
-                    MessageBox.Show("Please add information");
-                }
-                else
-                {
+                  
+               
                     dal.CallProcedureWithParameters(paramNames, values, "usp_CreateCaretaker");
 
                     caretakerTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadCaretaker").DefaultView;
@@ -55,12 +53,12 @@ namespace ProjAssignment
             {               
                 if (ex.Number == 2627)
                 {
-                    MessageBox.Show("Id already excists");
+                    errorMsg.Content="Id already exists";
                 }
 
                 else
                 {
-                    MessageBox.Show("Something went wrong");
+                   errorMsg.Content="Something went wrong";
                 }
             }
             nameTextBox.Clear();
