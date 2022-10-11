@@ -48,7 +48,7 @@ namespace ProjAssignment
             {
                 if (string.IsNullOrEmpty(name.Trim()) || string.IsNullOrEmpty(location.Trim()) || string.IsNullOrEmpty(sizeUpDownControl.Value.ToString()) || string.IsNullOrEmpty(myUpDownControl.Value.ToString()))
                 {
-                     MessageBox.Show("Please add info");
+                   //  MessageBox.Show("Please add info");
                    
                 }
 

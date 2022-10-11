@@ -26,7 +26,7 @@
             <MenuItem Header="Animals" Click="OnAnimalsClick" />
             <MenuItem Header="Enclosure" Click="OnEnclosureClick"/>
         </Menu>
-        <Frame x:Name="contentFrame" Source="../Animal.xaml" Margin="20,10,10,10" Grid.Column="1" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="contentFrame" Source="../Caretaker.xaml" Margin="20,10,10,10" Grid.Column="1" NavigationUIVisibility="Hidden"/>
 
 
 

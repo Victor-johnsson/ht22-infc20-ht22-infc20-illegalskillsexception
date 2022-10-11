@@ -33,14 +33,14 @@ namespace ProjAssignment
 
         private void OnAddButton(object sender, RoutedEventArgs e)
         {
-            var name = nameTextBox.Text;
-            var phoneNumber = phoneNbrTextBox.Text;
+            var name = nameTextBox.Text.Trim();
+            var phoneNumber = phoneNbrTextBox.Text.Trim();
             var paramNames = new string[] { "@name", "@phoneNbr" };
             var values = new object[] { name, phoneNumber };
 
             try
             {
-                if (string.IsNullOrEmpty(name.Trim()) || string.IsNullOrEmpty(phoneNumber.Trim()))
+                if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(phoneNumber))
                 {
                     MessageBox.Show("Please add information");
                 }
@@ -71,6 +71,7 @@ namespace ProjAssignment
         {
             var rowView = caretakerTable.SelectedItem as DataRowView;
             if(rowView != null)
+
             {
                 var row = rowView.Row;
                 
