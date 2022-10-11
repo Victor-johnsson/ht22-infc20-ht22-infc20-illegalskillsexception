@@ -9,7 +9,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Enclosure">
     <Page.Resources >
-        <local:EnclosureDTO x:Key="Ods"/>
+        <local:NameValidator x:Key="Ods"/>
         <ControlTemplate x:Key="ValidationTemplate">
             <DockPanel>
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">

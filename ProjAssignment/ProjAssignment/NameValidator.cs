@@ -11,6 +11,9 @@ namespace ProjAssignment
 {
     public class NameValidator : ValidationRule
     {
+        public string Name { get; set; }
+        public string Location { get; set; }
+
         public override ValidationResult Validate
           (object value, CultureInfo cultureInfo)
         {
