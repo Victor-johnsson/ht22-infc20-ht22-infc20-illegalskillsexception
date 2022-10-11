@@ -9,15 +9,42 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Enclosure">
     <Page.Resources >
-        <ControlTemplate x:Key="validationErrorTemplate">
+        <local:EnclosureDTO x:Key="Ods"/>
+        <ControlTemplate x:Key="ValidationTemplate">
             <DockPanel>
-                <TextBlock Foreground="Red" 
-            DockPanel.Dock="Top">!</TextBlock>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                    <Grid Width="12" Height="12">
+                        <Ellipse Width="12" Height="12" 
+            Fill="Red" HorizontalAlignment="Center" 
+            VerticalAlignment="Center"
+                     
+                     ></Ellipse>
+                        <TextBlock Foreground="White" FontWeight="Heavy" 
+            FontSize="8" HorizontalAlignment="Center" 
+            VerticalAlignment="Center" TextAlignment="Center"
+                       ToolTip="{Binding ElementName=ErrorAdorner, 
+                       Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"
+                       >X</TextBlock>
+                    </Grid>
+                    <TextBlock Foreground="Red" FontWeight="12" Margin="2,0,0,0" 
+                   Text="{Binding ElementName=ErrorAdorner, 
+                   Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"
+                   ></TextBlock>
+                </StackPanel>
                 <AdornedElementPlaceholder 
-           x:Name="ErrorAdorner"></AdornedElementPlaceholder>
+        x:Name="ErrorAdorner" ></AdornedElementPlaceholder>
             </DockPanel>
         </ControlTemplate>
 
+        <Style x:Key="TextBoxInError" TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+              Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                              Path=(Validation.Errors)}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Page.Resources>
 
     <Grid>
@@ -45,21 +72,29 @@
             <xctk:IntegerUpDown Name="sizeUpDownControl" Canvas.Top="210" Increment="10" Canvas.Left="490" IsEnabled="True"/>
 
 
-            <TextBox x:Name="nameTextBox" Canvas.Left="490" TextWrapping="Wrap" Canvas.Top="116" Width="120" HorizontalAlignment="Left" VerticalAlignment="Center"
-                     Validation.ErrorTemplate="{StaticResource validationErrorTemplate}">
+            <TextBox x:Name="nameTextBox" Canvas.Left="490" TextWrapping="NoWrap" Canvas.Top="116" Width="120" HorizontalAlignment="Left" VerticalAlignment="Center"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
                 <TextBox.Text>
-                    <Binding Path="Name" Mode="TwoWay" UpdateSourceTrigger="LostFocus">
+                    <Binding Source="{StaticResource Ods}" Path="Name" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <local:NameValidator></local:NameValidator>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBox x:Name="locationTextBox" Canvas.Left="490" TextWrapping="Wrap" Canvas.Top="161" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top" />
-            <Label x:Name="Capacity" Content="Capacity&#xD;&#xA;" Canvas.Left="490" Canvas.Top="41" HorizontalAlignment="Center" VerticalAlignment="Top" Height="26"/>
-            <Label Content="Name" Canvas.Left="490" Canvas.Top="90" HorizontalAlignment="Center" VerticalAlignment="Top" IsEnabled="True"/>
-            <Label Content="Location" Canvas.Left="490" Canvas.Top="134" />
-            <Label Content="Size" Canvas.Left="490" Canvas.Top="181" />
+            <TextBox x:Name="locationTextBox" Canvas.Left="490" TextWrapping="NoWrap" Canvas.Top="161" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" >
+                <TextBox.Text>
+                    <Binding Source="{StaticResource Ods}" Path="Location" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <local:NameValidator></local:NameValidator>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Label x:Name="Capacity" Content="Capacity&#xD;&#xA;" Canvas.Left="435" Canvas.Top="70" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26"/>
+            <Label Content="Name" Canvas.Left="443" Canvas.Top="112" HorizontalAlignment="Left" VerticalAlignment="Top" IsEnabled="True"/>
+            <Label Content="Location" Canvas.Left="430" Canvas.Top="157" />
+            <Label Content="Size" Canvas.Left="449" Canvas.Top="204" />
             <RichTextBox x:Name="EnclosureRichTextBox" Height="63" Width="161" Canvas.Top="272" Canvas.Left="449" IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Center"  >
                 <FlowDocument>
                     <Paragraph>

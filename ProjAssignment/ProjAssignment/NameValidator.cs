@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -11,14 +12,14 @@ namespace ProjAssignment
     public class NameValidator : ValidationRule
     {
         public override ValidationResult Validate
-          (object value, System.Globalization.CultureInfo cultureInfo)
+          (object value, CultureInfo cultureInfo)
         {
-            if (value == null)
+            if (value == null || value.ToString().IsNullOrEmpty())
                 return new ValidationResult(false, "value cannot be empty.");
             else
             {
-                if (value.ToString().Length > 20)
-                    return new ValidationResult(false, "Name cannot be more than 20 characters long.");
+                if (value.ToString().Length > 255)
+                    return new ValidationResult(false, "value cannot be more than 255 characters long.");
             }
             return ValidationResult.ValidResult;
         }
