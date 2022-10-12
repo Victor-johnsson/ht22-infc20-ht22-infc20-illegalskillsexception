@@ -64,7 +64,7 @@
                     <DataGridTextColumn Header="Species" Binding="{Binding animalType, UpdateSourceTrigger=PropertyChanged}" />
                     <DataGridTextColumn Header="Food" IsReadOnly="True" Binding="{Binding foodType, UpdateSourceTrigger=PropertyChanged}" />
                     <DataGridTextColumn Header="Food Amount" Binding="{Binding FoodAmount, UpdateSourceTrigger=PropertyChanged}" />
-
+                      
 
                 </DataGrid.Columns>
             </DataGrid>
@@ -111,10 +111,12 @@
             <ComboBox x:Name="animalNameCombobox" DisplayMemberPath="animalName" SelectedValuePath="Id" SelectedValue="{Binding Id, UpdateSourceTrigger=PropertyChanged}" Canvas.Left="68" Canvas.Top="357" Width="120" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             <ComboBox x:Name="changeCombobox" Canvas.Left="226" DisplayMemberPath="Type" SelectedValuePath="Id" SelectedValue="{Binding Id, UpdateSourceTrigger=PropertyChanged}" Canvas.Top="357" Width="120" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             <Label Content="Animal" Canvas.Left="68" Canvas.Top="324" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <RadioButton x:Name="foodRadioButton" Content="Food" Canvas.Left="240" Canvas.Top="333" HorizontalAlignment="Left" VerticalAlignment="Center" Checked="OnFoodRadioButton"/>
-            <RadioButton x:Name="enclosureradioButton" Content="Enclosure" Canvas.Left="291" Canvas.Top="334" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="OnEnclosureRadioButton"/>
+            <RadioButton  GroupName="Update" x:Name="foodRadioButton" Content="Food" Canvas.Left="240" Canvas.Top="333" HorizontalAlignment="Left" VerticalAlignment="Center" Checked="OnFoodRadioButton"/>
+            <RadioButton  GroupName="Update" x:Name="enclosureradioButton" Content="Enclosure" Canvas.Left="291" Canvas.Top="334" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="OnEnclosureRadioButton"/>
             <Button Content="UpdateButton" Canvas.Left="339" Canvas.Top="403" Click="OnUpdateButtonClick"/>
             <Label  x:Name="errorMsg" Content=""   FontWeight="12" Canvas.Left="418" Canvas.Top="303" RenderTransformOrigin="0.684,-0.19" Foreground="Red" HorizontalAlignment="Left" VerticalAlignment="Center" Width="337" Height="38"/>
+            <RadioButton x:Name="newAnimalRadioButton" GroupName="Table" Content="New Animals" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="OnNewAnimalRadioButtonChecked" RenderTransformOrigin="-0.272,0.735" Canvas.Left="238" Canvas.Top="40"/>
+            <RadioButton x:Name="allAnimalsRadioButton" GroupName="Table" Content="All Animals" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="OnAllAnimalRadioButtonChecked" Canvas.Left="135" Canvas.Top="40"/>
 
         </Canvas>
 

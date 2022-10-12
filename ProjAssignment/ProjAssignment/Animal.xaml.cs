@@ -26,11 +26,11 @@ namespace ProjAssignment
         public Animal()
         {
             InitializeComponent();
-            animalTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadAnimal").DefaultView;
             enclosureComboBox.ItemsSource = dal.ReadByStoredProcedure("usp_ReadEnclosure").DefaultView;
             foodComboBox.ItemsSource = dal.ReadByStoredProcedure("usp_ReadFood").DefaultView;
             animalNameCombobox.ItemsSource = dal.ReadByStoredProcedure("usp_ReadAnimal").DefaultView;
             foodRadioButton.IsChecked = true;
+            allAnimalsRadioButton.IsChecked = true;
         }
 
         private void animalTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -183,9 +183,14 @@ namespace ProjAssignment
                     values[3] = itemRow["Id"];
                     values[4] = animalRow["foodId"];
                 }
+                
                 dal.CallProcedureWithParameters(new[] { "@id", "@name", "@foodAmount", "@enclosureId", "@foodId" }, values, "usp_UpdateAnimal");
 
-                animalTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadAnimal").DefaultView;
+                if (allAnimalsRadioButton.IsChecked.Value)
+                {
+                    animalTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadAnimal").DefaultView;
+
+                }
                 animalNameCombobox.ItemsSource = dal.ReadByStoredProcedure("usp_ReadAnimal").DefaultView;
                 changeCombobox.SelectedItem = null;
 
@@ -199,6 +204,71 @@ namespace ProjAssignment
             }
 
 
+        }
+
+        private void OnAllAnimalRadioButtonChecked(object sender, RoutedEventArgs e)
+        {
+            animalTable.Columns.Clear();
+
+            DataGridTextColumn txtColumn = new DataGridTextColumn();
+            txtColumn.Header = "Name";
+            txtColumn.Binding = new Binding("animalName");
+            animalTable.Columns.Add(txtColumn);
+
+
+            txtColumn = new DataGridTextColumn();
+            txtColumn.Header = "Enclosure";
+            txtColumn.Binding = new Binding("enclosureName");
+            txtColumn.IsReadOnly= true;
+            animalTable.Columns.Add(txtColumn);
+
+            txtColumn = new DataGridTextColumn();
+            txtColumn.Header = "Species";
+            txtColumn.Binding = new Binding("animalType");
+            animalTable.Columns.Add(txtColumn);
+
+            txtColumn = new DataGridTextColumn();
+            txtColumn.Header = "Food";
+            txtColumn.Binding = new Binding("foodType");
+            txtColumn.IsReadOnly = true;
+            animalTable.Columns.Add(txtColumn);
+
+            txtColumn = new DataGridTextColumn();
+            txtColumn.Header = "Food Amount";
+            txtColumn.Binding = new Binding("FoodAmount");
+            animalTable.Columns.Add(txtColumn);
+
+
+
+
+            deleteButton.IsEnabled = true;
+            animalTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadAnimal").DefaultView;
+
+
+        }
+
+        private void OnNewAnimalRadioButtonChecked(object sender, RoutedEventArgs e)
+        {
+            animalTable.Columns.Clear();
+            
+            DataGridTextColumn txtColumn = new DataGridTextColumn();
+            txtColumn.Header = "Name";
+            txtColumn.Binding = new Binding("animalName");
+            txtColumn.IsReadOnly = true;
+           
+            animalTable.Columns.Add(txtColumn);
+            
+
+            DataGridTextColumn dateColumn = new DataGridTextColumn();
+            dateColumn.Header = "Date";
+            dateColumn.Binding = new Binding("date");
+            animalTable.Columns.Add(dateColumn);
+            dateColumn.Binding.StringFormat = "dd/MM-yyyy";
+            dateColumn.IsReadOnly = true;
+
+
+            deleteButton.IsEnabled = false;
+            animalTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadNewAnimal").DefaultView;
         }
     }
 }
