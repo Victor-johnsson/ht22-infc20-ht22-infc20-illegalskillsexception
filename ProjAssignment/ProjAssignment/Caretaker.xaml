@@ -82,8 +82,8 @@
                 </TextBox.Text>
             </TextBox>
 
-            <Label Content="Name" Canvas.Left="475" Canvas.Top="80" RenderTransformOrigin="-0.56,1.407"/>
-            <Label Content="Phone Number" Canvas.Left="475" Canvas.Top="125" RenderTransformOrigin="-0.56,1.407" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Label Content="Name" Canvas.Left="428" Canvas.Top="103" RenderTransformOrigin="-0.56,1.407"/>
+            <Label Content="Phone Number" Canvas.Left="379" Canvas.Top="143" RenderTransformOrigin="-0.56,1.407" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <Button x:Name="addButton" Content="Add" Canvas.Left="569" Canvas.Top="180" Click="OnAddButton" RenderTransformOrigin="3.865,-0.902"/>
             <Button x:Name="deleteBtn" Content="Delete" Canvas.Left="299" Canvas.Top="248" Click="OnDeleteBtn"/>
             <Label  x:Name="errorMsg" Content=""  FontWeight="12" Canvas.Left="477" Canvas.Top="212" RenderTransformOrigin="0.684,-0.19" Foreground="Red"/>

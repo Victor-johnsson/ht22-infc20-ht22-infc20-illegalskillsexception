@@ -77,7 +77,7 @@
 
                     <Binding Source="{StaticResource iVal}" Path="Capacity" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" >
                         <Binding.ValidationRules>
-                            <local:IntValidator Max="500" Min="1"/>
+                            <local:IntValidator Max="1000" Min="1"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </xctk:IntegerUpDown.Text>
@@ -86,7 +86,7 @@
                 <xctk:IntegerUpDown.Text>
                     <Binding Source="{StaticResource iVal}" Path="Size" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" >
                         <Binding.ValidationRules>
-                            <local:IntValidator Max="1000" Min="1"/>
+                            <local:IntValidator Max="30000" Min="1"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </xctk:IntegerUpDown.Text>
@@ -115,6 +115,7 @@
             <Label Content="Name" Canvas.Left="443" Canvas.Top="112" HorizontalAlignment="Left" VerticalAlignment="Top" IsEnabled="True"/>
             <Label Content="Location" Canvas.Left="430" Canvas.Top="157" />
             <Label Content="Size (sq m)" Canvas.Left="422" Canvas.Top="207" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <Label  x:Name="errorMsg" Content=""  FontWeight="12" Canvas.Left="422" Canvas.Top="264" RenderTransformOrigin="0.684,-0.19" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Top" Width="151"/>
         </Canvas>
 
 

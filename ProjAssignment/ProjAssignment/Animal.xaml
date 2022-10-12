@@ -70,12 +70,12 @@
             </DataGrid>
             <ComboBox x:Name="enclosureComboBox" DisplayMemberPath="Name" SelectedValuePath="Id" SelectedValue="{Binding Id, UpdateSourceTrigger=PropertyChanged}" Canvas.Left="497" Canvas.Top="159" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" RenderTransformOrigin="0.106,0.606" />
             <ComboBox x:Name="foodComboBox" DisplayMemberPath="Type" SelectedValuePath="Id" Canvas.Left="497" SelectedValue="{Binding Id, UpdateSourceTrigger=PropertyChanged}" Canvas.Top="112" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" />
-            <xctk:IntegerUpDown x:Name="foodIntegerUpDown" Increment="100" Value="100" DefaultValue="100" Canvas.Left="507" Canvas.Top="266" HorizontalAlignment="Left" VerticalAlignment="Center" Width="81" Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
+            <xctk:IntegerUpDown x:Name="foodIntegerUpDown" Increment="100" Value="100" DefaultValue="100" Canvas.Left="536" Canvas.Top="245" HorizontalAlignment="Left" VerticalAlignment="Top" Width="81" Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
                 <xctk:IntegerUpDown.Text>
 
                     <Binding Source="{StaticResource iVal}" Path="Amount" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged" >
                         <Binding.ValidationRules>
-                            <local:IntValidator Max="10000" Min="50"/>
+                            <local:IntValidator Max="10000" Min="100"/>
 
                         </Binding.ValidationRules>
 
@@ -83,10 +83,10 @@
                 </xctk:IntegerUpDown.Text>
 
             </xctk:IntegerUpDown>
-            <Label x:Name="Name" Content="Name&#xD;&#xA;&#xA;" Canvas.Left="490" Canvas.Top="41" HorizontalAlignment="Center" VerticalAlignment="Top" Height="26"/>
-            <Label Content="Food&#xD;&#xA;" Canvas.Left="490" Canvas.Top="90" HorizontalAlignment="Center" VerticalAlignment="Top" IsEnabled="True" RenderTransformOrigin="0.081,-0.363"/>
-            <Label Content="Enclosure&#xD;&#xA;" Canvas.Left="490" Canvas.Top="134" />
-            <Label Content="Species&#xA;" Canvas.Left="490" Canvas.Top="181" />
+            <Label x:Name="Name" Content="Name&#xD;&#xA;&#xA;" Canvas.Left="448" Canvas.Top="64" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26"/>
+            <Label Content="Food&#xD;&#xA;" Canvas.Left="455" Canvas.Top="110" HorizontalAlignment="Center" VerticalAlignment="Top" IsEnabled="True" RenderTransformOrigin="0.081,-0.363" Height="24"/>
+            <Label Content="Enclosure&#xD;&#xA;" Canvas.Left="436" Canvas.Top="159" HorizontalAlignment="Center" Height="33" VerticalAlignment="Top" />
+            <Label Content="Species&#xA;" Canvas.Left="436" Canvas.Top="197" HorizontalAlignment="Left" VerticalAlignment="Top" Height="28" />
             <TextBox x:Name="animalNameTextBox" Canvas.Left="497" TextWrapping="NoWrap" Canvas.Top="72" Width="120" Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
                 <TextBox.Text>
                     <Binding Source="{StaticResource Ods}" Path="Name" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
@@ -105,8 +105,8 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <Label Content="Amount of food (g)&#xA;" Canvas.Left="497" Canvas.Top="228" HorizontalAlignment="Center" VerticalAlignment="Top" Height="33"/>
-            <Button x:Name="addButton" Content="Add" Canvas.Left="584" Canvas.Top="307" Click="OnAddButtonClick"/>
+            <Label Content="Amount of food (g)&#xA;" Canvas.Left="418" Canvas.Top="245" HorizontalAlignment="Left" VerticalAlignment="Top" Height="33"/>
+            <Button x:Name="addButton" Content="Add" Canvas.Left="591" Canvas.Top="276" Click="OnAddButtonClick"/>
             <Button  x:Name="deleteButton"  Content="Delete" Canvas.Left="339" Canvas.Top="271" Click="OnDeleteButtonClick"/>
             <ComboBox x:Name="animalNameCombobox" DisplayMemberPath="animalName" SelectedValuePath="Id" SelectedValue="{Binding Id, UpdateSourceTrigger=PropertyChanged}" Canvas.Left="68" Canvas.Top="357" Width="120" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             <ComboBox x:Name="changeCombobox" Canvas.Left="226" DisplayMemberPath="Type" SelectedValuePath="Id" SelectedValue="{Binding Id, UpdateSourceTrigger=PropertyChanged}" Canvas.Top="357" Width="120" HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -114,7 +114,7 @@
             <RadioButton x:Name="foodRadioButton" Content="Food" Canvas.Left="240" Canvas.Top="333" HorizontalAlignment="Left" VerticalAlignment="Center" Checked="OnFoodRadioButton"/>
             <RadioButton x:Name="enclosureradioButton" Content="Enclosure" Canvas.Left="291" Canvas.Top="334" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="OnEnclosureRadioButton"/>
             <Button Content="UpdateButton" Canvas.Left="339" Canvas.Top="403" Click="OnUpdateButtonClick"/>
-            <Label  x:Name="errorMsg" Content=""  FontWeight="12" Canvas.Left="421" Canvas.Top="299" RenderTransformOrigin="0.684,-0.19" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" Width="158" Height="38"/>
+            <Label  x:Name="errorMsg" Content=""   FontWeight="12" Canvas.Left="418" Canvas.Top="303" RenderTransformOrigin="0.684,-0.19" Foreground="Red" HorizontalAlignment="Left" VerticalAlignment="Center" Width="337" Height="38"/>
 
         </Canvas>
 

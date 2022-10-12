@@ -60,12 +60,23 @@ namespace ProjAssignment
             var name = animalNameTextBox.Text.Trim();
             var food = foodComboBox.SelectedValue;
             var enclosure = enclosureComboBox.SelectedValue;
-
-            var type = animalTypeTextBox.Text;
+            var type = animalTypeTextBox.Text.Trim();
             var foodAmount = foodIntegerUpDown.Value;
 
 
-            if (!string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(type) && food!= null && enclosure!= null && foodAmount!=null) 
+            if (
+                !string.IsNullOrEmpty(name) 
+                && name.Length >= 1
+                && name.Length <= 255
+                && !string.IsNullOrEmpty(type) 
+                && type.Length >= 1
+                && type.Length <= 255
+                && food!= null
+                && enclosure!= null 
+                && foodAmount!=null
+                && foodAmount >=100
+                && foodAmount <= 10000
+                ) 
             {
                
                dal.CallProcedureWithParameters(
@@ -73,6 +84,12 @@ namespace ProjAssignment
               new object[] { name, food, enclosure, type, foodAmount },
               "usp_CreateAnimal");
                 animalTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadAnimal").DefaultView;
+                animalNameCombobox.ItemsSource = dal.ReadByStoredProcedure("usp_ReadAnimal").DefaultView;
+
+                animalNameTextBox.Clear();
+                animalTypeTextBox.Clear();
+                foodIntegerUpDown.Value = 100;
+
             }
 
             else
@@ -86,14 +103,24 @@ namespace ProjAssignment
         private void OnDeleteButtonClick(object sender, RoutedEventArgs e)
         {
             var selection = animalTable.SelectedItem as DataRowView;
-            if(selection != null) {
+
+            if (selection != null) {
+
                 var id = selection["Id"];
                 dal.CallProcedureWithParameters(new[] { "@id" }, new[] { id }, "usp_DeleteAnimal");
                
                 animalTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadAnimal").DefaultView;
+                animalNameCombobox.ItemsSource = dal.ReadByStoredProcedure("usp_ReadAnimal").DefaultView;
+                errorMsg.Content = null;
+
             }
-            
-            
+            else
+            {
+                errorMsg.Content = "Please select a row to delete";
+            }
+
+
+              
         }
 
         private void UpdateAnimal(object sender, DataGridRowEditEndingEventArgs e)
@@ -113,7 +140,7 @@ namespace ProjAssignment
 
 
                 animalTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadAnimal").DefaultView;
-
+                animalNameCombobox.ItemsSource = dal.ReadByStoredProcedure("usp_ReadAnimal").DefaultView;
 
             }
         }
@@ -133,31 +160,44 @@ namespace ProjAssignment
         private void OnUpdateButtonClick(object sender, RoutedEventArgs e)
         {
 
-
             var animal = animalNameCombobox.SelectedItem as DataRowView;
             var item = changeCombobox.SelectedItem as DataRowView;
-            var itemRow = item.Row;
-            var animalRow = animal.Row;
-            var values = new object[5];
-            values[0] = animalRow["Id"];
-            values[1] = animalRow["animalName"];
-            values[2] = animalRow["foodAmount"];
 
-            if (foodRadioButton.IsChecked.Value)
+            if (animal != null && item !=null )
             {
-                values[4] = itemRow["Id"];
-                values[3] = animalRow["enclosureId"]; 
+                var itemRow = item.Row;
+                var animalRow = animal.Row;
+                var values = new object[5];
+                values[0] = animalRow["Id"];
+                values[1] = animalRow["animalName"];
+                values[2] = animalRow["foodAmount"];
 
-            } else
-            {
-                values[3] = itemRow["Id"];
-                values[4] = animalRow["foodId"];
+                if (foodRadioButton.IsChecked.Value)
+                {
+                    values[4] = itemRow["Id"];
+                    values[3] = animalRow["enclosureId"];
+
+                }
+                else
+                {
+                    values[3] = itemRow["Id"];
+                    values[4] = animalRow["foodId"];
+                }
+                dal.CallProcedureWithParameters(new[] { "@id", "@name", "@foodAmount", "@enclosureId", "@foodId" }, values, "usp_UpdateAnimal");
+
+                animalTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadAnimal").DefaultView;
+                animalNameCombobox.ItemsSource = dal.ReadByStoredProcedure("usp_ReadAnimal").DefaultView;
+                changeCombobox.SelectedItem = null;
+
+                errorMsg.Content=null;
+
             }
-            dal.CallProcedureWithParameters(new[] { "@id", "@name", "@foodAmount", "@enclosureId", "@foodId" }, values, "usp_UpdateAnimal");
+            else
+            {
+                errorMsg.Content = "Please enter values";
 
-            animalTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadAnimal").DefaultView;
-            animalNameCombobox.ItemsSource = dal.ReadByStoredProcedure("usp_ReadAnimal").DefaultView;
-            changeCombobox.SelectedItem = null;
+            }
+
 
         }
     }

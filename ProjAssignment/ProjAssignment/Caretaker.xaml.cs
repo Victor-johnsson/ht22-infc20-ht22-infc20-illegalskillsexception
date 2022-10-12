@@ -40,13 +40,23 @@ namespace ProjAssignment
 
             try
             {
-                if (!string.IsNullOrEmpty(name) || !string.IsNullOrEmpty(phoneNumber))
-                {
-                  
-               
+                if (
+                    !string.IsNullOrEmpty(name) 
+                    && !string.IsNullOrEmpty(phoneNumber)
+                    && name.Length >= 1
+                    && name.Length <= 255
+                    && phoneNumber.Length >= 1
+                    && phoneNumber.Length <= 255
+                    )
+                {                  
                     dal.CallProcedureWithParameters(paramNames, values, "usp_CreateCaretaker");
-
                     caretakerTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadCaretaker").DefaultView;
+                    nameTextBox.Text = "";
+                    phoneNbrTextBox.Clear();
+                }
+                else
+                {
+                    errorMsg.Content="Please enter all fields";
                 }
             }
             catch (SqlException ex)
@@ -61,8 +71,8 @@ namespace ProjAssignment
                    errorMsg.Content="Something went wrong";
                 }
             }
-            nameTextBox.Clear();
-            phoneNbrTextBox.Clear();
+         
+
         }
 
         private void OnDeleteBtn(object sender, RoutedEventArgs e)
@@ -81,7 +91,13 @@ namespace ProjAssignment
                 dal.CallProcedureWithParameters(paramNames, values, "usp_DeleteCaretaker");
 
                 caretakerTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadCaretaker").DefaultView;
-            }        
+
+                errorMsg.Content = null;
+            }
+            else
+            {
+                errorMsg.Content = "Please select a row to delete";
+            }
 
         }
 
