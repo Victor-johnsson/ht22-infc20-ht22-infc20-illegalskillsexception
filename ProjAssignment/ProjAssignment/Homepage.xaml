@@ -22,11 +22,10 @@
                     <TranslateTransform Y="-0.663"/>
                 </TransformGroup>
             </Menu.RenderTransform>
-            <MenuItem Header="Caretakers" Click="OnCaretakerClick"/>
             <MenuItem Header="Animals" Click="OnAnimalsClick" />
             <MenuItem Header="Enclosure" Click="OnEnclosureClick"/>
         </Menu>
-        <Frame x:Name="contentFrame" Source="../Caretaker.xaml" Margin="20,10,10,10" Grid.Column="1" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="contentFrame" Source="../Enclosure.xaml" Margin="20,10,10,10" Grid.Column="1" NavigationUIVisibility="Hidden"/>
 
 
 

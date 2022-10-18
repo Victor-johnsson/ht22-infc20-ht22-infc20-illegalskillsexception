@@ -32,10 +32,7 @@ namespace ProjAssignment
           
         }
 
-        private void enclosureTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
+  
         private void OnAddButton(object sender, RoutedEventArgs e)
         {
 
@@ -136,6 +133,7 @@ namespace ProjAssignment
             }
 
         }
+
       
     }
 }

@@ -61,7 +61,7 @@
                     <GradientStop Color="#FF8BB5A8" Offset="0.067"/>
                 </LinearGradientBrush>
             </Canvas.Background>
-            <DataGrid x:Name="enclosureTable" Height="182" Width="323" AutoGenerateColumns="False" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="70" Canvas.Left="46" RenderTransformOrigin="0.5,0.5" SelectionChanged="enclosureTable_SelectionChanged" IsEnabled="True" RowEditEnding="OnUpdate">
+            <DataGrid x:Name="enclosureTable" Height="182" Width="323" AutoGenerateColumns="False" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="70" Canvas.Left="46" RenderTransformOrigin="0.5,0.5" IsEnabled="True" RowEditEnding="OnUpdate">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
                     <DataGridTextColumn Header="Location" Binding="{Binding Location, UpdateSourceTrigger=PropertyChanged}" />
