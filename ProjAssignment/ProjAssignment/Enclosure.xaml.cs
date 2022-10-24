@@ -28,8 +28,17 @@ namespace ProjAssignment
         public Enclosure()
         {
             InitializeComponent();
-            enclosureTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadEnclosure").DefaultView;
-          
+            try
+            {
+                enclosureTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadEnclosure").DefaultView;
+
+            }
+            catch (SqlException ex)
+            {
+
+                errorMsg.Content = ErrorHandling.SqlError(ex);
+            }
+
         }
 
   
@@ -82,55 +91,70 @@ namespace ProjAssignment
             }
             catch (SqlException ex)
             { 
-                if (ex.Number == 2627)
-                {
-                    errorMsg.Content = "Id already exists";
-                }
+                
+                errorMsg.Content = ErrorHandling.SqlError(ex);
+                
 
-                else
-                {
-                    errorMsg.Content = "Something went wrong";
-                }
+               
             }
         }
 
         private void OnDeleteButton(object sender, RoutedEventArgs e)
         {
-            var selectItem = enclosureTable.SelectedItem as DataRowView;        
-
-            if(selectItem != null)
+            try
             {
-                var id = selectItem[0];
+                var selectItem = enclosureTable.SelectedItem as DataRowView;
 
-                dal.CallProcedureWithParameters(new[] { "@id" }, new[] { id }, "usp_DeleteEnclosure");
-                enclosureTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadEnclosure").DefaultView;
+                if (selectItem != null)
+                {
+                    var id = selectItem[0];
 
-                errorMsg.Content = null;
+                    dal.CallProcedureWithParameters(new[] { "@id" }, new[] { id }, "usp_DeleteEnclosure");
+                    enclosureTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadEnclosure").DefaultView;
+
+                    errorMsg.Content = null;
+                }
+
+                else
+                {
+                    errorMsg.Content = "Please select row to delete";
+                }
+
+
             }
-
-            else
+            catch (SqlException ex)
             {
-                errorMsg.Content = "Please select row to delete";
-            }
+                errorMsg.Content = ErrorHandling.SqlError(ex);
 
+            }
+          
         }
 
         private void OnUpdate(object sender, DataGridRowEditEndingEventArgs e)
         {
-            var dataGridRow = e.Row;
-            var row = dataGridRow.Item as DataRowView;
-
-            if (row != null)
+            try
             {
-                object?[] itemArray = row.Row.ItemArray;
+                var dataGridRow = e.Row;
+                var row = dataGridRow.Item as DataRowView;
 
-                dal.CallProcedureWithParameters(
-                   new[] { "@id", "@size", "@location", "@maxAmountAnimals", "@name" },
-                   itemArray,
-                   "usp_UpdateEnclosure");
-                enclosureTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadEnclosure").DefaultView;
+                if (row != null)
+                {
+                    object?[] itemArray = row.Row.ItemArray;
+
+                    dal.CallProcedureWithParameters(
+                       new[] { "@id", "@size", "@location", "@maxAmountAnimals", "@name" },
+                       itemArray,
+                       "usp_UpdateEnclosure");
+                    enclosureTable.ItemsSource = dal.ReadByStoredProcedure("usp_ReadEnclosure").DefaultView;
+
+                }
+            }
+            catch(SqlException ex)
+            {
+                errorMsg.Content = ErrorHandling.SqlError(ex);
 
             }
+           
 
         }
 
