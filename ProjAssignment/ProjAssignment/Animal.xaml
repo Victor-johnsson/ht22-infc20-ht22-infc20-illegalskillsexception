@@ -57,13 +57,13 @@
                     <GradientStop Color="#FF8BB5A8" Offset="0.067"/>
                 </LinearGradientBrush>
             </Canvas.Background>
-            <DataGrid x:Name="animalTable" Height="182" Width="333" AutoGenerateColumns="False" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="70" Canvas.Left="46" RenderTransformOrigin="0.5,0.5" IsEnabled="True" SelectionChanged="animalTable_SelectionChanged" RowEditEnding="UpdateAnimal">
+            <DataGrid x:Name="animalTable" Height="182" Width="333" AutoGenerateColumns="False" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="70" Canvas.Left="46" RenderTransformOrigin="0.5,0.5" IsEnabled="True"  RowEditEnding="UpdateAnimal">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding animalName, UpdateSourceTrigger=PropertyChanged}" />
-                    <DataGridTextColumn Header="Enclosure" IsReadOnly="True" Binding="{Binding enclosureName, UpdateSourceTrigger=PropertyChanged}" />
-                    <DataGridTextColumn Header="Species" Binding="{Binding animalType, UpdateSourceTrigger=PropertyChanged}" />
-                    <DataGridTextColumn Header="Food" IsReadOnly="True" Binding="{Binding foodType, UpdateSourceTrigger=PropertyChanged}" />
-                    <DataGridTextColumn Header="Food Amount" Binding="{Binding FoodAmount, UpdateSourceTrigger=PropertyChanged}" />
+                    <DataGridTextColumn Header="Name" Binding="{Binding animalName, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" />
+                    <DataGridTextColumn Header="Enclosure" IsReadOnly="True" Binding="{Binding enclosureName, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" />
+                    <DataGridTextColumn Header="Species" Binding="{Binding animalType, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" />
+                    <DataGridTextColumn Header="Food" IsReadOnly="True" Binding="{Binding foodType, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" />
+                    <DataGridTextColumn Header="Food Amount" Binding="{Binding FoodAmount, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" />
                       
 
                 </DataGrid.Columns>
