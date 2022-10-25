@@ -231,7 +231,7 @@ namespace ProjAssignment
                 {
                     var itemRow = item.Row;
                     var animalRow = animal.Row;
-                    var values = new object[5];
+                    var values = new object[6];
                     values[0] = animalRow["Id"];
                     values[1] = animalRow["animalName"];
                     values[2] = animalRow["foodAmount"];
